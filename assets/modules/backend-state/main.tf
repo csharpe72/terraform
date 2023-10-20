@@ -12,8 +12,7 @@ resource "aws_s3_bucket" "terraform_state_bucket" {
   bucket = "jenkins-terraform-state-bucket-imminent"
 
   tags = {
-    Terraform = "true"
-    LaunchMonthYear = formatdate("MM-YYYY", timestamp())
+      LaunchMonthYear = formatdate("MM-YYYY", timestamp())
   }
 
   lifecycle {
