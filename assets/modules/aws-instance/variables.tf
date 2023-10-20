@@ -22,6 +22,13 @@ variable "private_subnets" {
 #   type = list(string)
 # }
 
+variable "bastion_security_groups" {
+  
+}
+
+# variable "web_security_group" {
+  
+# }
 # variable "security_groups" {
 #   type = list(string)
 #   default = []

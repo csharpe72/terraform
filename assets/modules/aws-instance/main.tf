@@ -44,10 +44,11 @@ resource "aws_instance" "bastion" {
   instance_type               = var.instance_type
   associate_public_ip_address = true
   subnet_id                   = random_shuffle.subnets.result[0]
-  # vpc_security_group_ids      = var.security_groups
+  vpc_security_group_ids      = [var.bastion_security_groups]
 
 
   tags = {
+    Terraform = "true"
     Name = "jenkins-bastion"
   }
 }
@@ -61,11 +62,12 @@ resource "aws_instance" "jenkins_master" {
   key_name                    = var.key_name
   instance_type               = var.instance_type
   associate_public_ip_address = false
-  subnet_id = var.private_subnets[each.key]
+  subnet_id                   = var.private_subnets[each.key]
   # vpc_security_group_ids = [""]
 
 
   tags = {
+    Terraform = "true"
     Name = "jenkins-master-${each.value}"
   }
 }
