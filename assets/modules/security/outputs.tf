@@ -5,6 +5,10 @@ output "bastion_security_group_ids" {
 output "web_security_group_ids" {
   value = aws_security_group.web.id
 }
+
+output "lb_security_group_ids" {
+  value = aws_security_group.lb.id
+}
 output "bastion_port" {
   value = local.bastion-sg
 }

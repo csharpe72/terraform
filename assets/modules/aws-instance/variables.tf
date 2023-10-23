@@ -26,9 +26,10 @@ variable "bastion_security_groups" {
   
 }
 
-# variable "web_security_group" {
+variable "web_security_groups" {
   
-# }
+}
+
 # variable "security_groups" {
 #   type = list(string)
 #   default = []
