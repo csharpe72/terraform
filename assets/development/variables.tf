@@ -58,6 +58,7 @@ variable "key_name" {
 #   default = {
 #     project_name = var.project_name,
 #     environment  = var.environment
+#     Terraform    = "true"
 #   }
 # }
 
