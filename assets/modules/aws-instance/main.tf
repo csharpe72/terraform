@@ -49,7 +49,7 @@ resource "aws_instance" "bastion" {
 
   tags = {
     Terraform = "true"
-    Name = "jenkins-bastion"
+    Name      = "jenkins-bastion"
   }
 }
 
@@ -63,11 +63,11 @@ resource "aws_instance" "jenkins_master" {
   instance_type               = var.instance_type
   associate_public_ip_address = false
   subnet_id                   = var.private_subnets[each.key]
-  # vpc_security_group_ids = [""]
+  vpc_security_group_ids      = [var.web_security_groups]
 
-
+  user_data = file("${path.module}/scripts/bootstrap.sh")
   tags = {
     Terraform = "true"
-    Name = "jenkins-master-${each.value}"
+    Name      = "jenkins-master-${each.value}"
   }
 }
