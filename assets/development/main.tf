@@ -9,6 +9,7 @@ terraform {
 
 module "backend-state" {
   source = "../modules/backend-state"
+  tags = local.common_tags
 }
 
 module "vpc" {
@@ -16,6 +17,7 @@ module "vpc" {
   vpc_cidr_block     = var.vpc_cidr_block
   environment        = var.environment
   public_subnet_cidr = var.public_subnet_cidr
+  tags               = local.common_tags
 }
 module "security" {
   source         = "../modules/security"
@@ -23,9 +25,10 @@ module "security" {
   bastion_port   = module.security.bastion_port
   jenkins_ports  = module.security.jenkins_ports
   vpc_cidr_block = var.vpc_cidr_block
+  tags           = local.common_tags
 }
 module "ec2" {
-  source                  = "../modules/aws-instance"
+  source                  = "../modules/compute"
   instance_type           = var.instance_type
   key_name                = var.key_name
   environment             = var.environment
@@ -33,12 +36,11 @@ module "ec2" {
   private_subnets         = module.vpc.private_subnets
   bastion_security_groups = module.security.bastion_security_group_ids
   web_security_groups     = module.security.web_security_group_ids
+  tags                    = local.common_tags
 }
-
 # module "network" {
 #   source                = "../modules/network"
-#   public_subnets        = var.public_subnets
+#   public_subnet_id      = module.vpc.private_subnets
 #   lb_security_group_ids = [module.security.lb_security_group_ids]
-#   jenkins_master        = [module.ec2.jenkins_master]
-#   #instances             = [aws_instance.jenkins_master.id] 
+#   ec2_instance_ids      = [module.ec2.jenkins_master]
 # }

@@ -5,7 +5,6 @@ variable "vpc_cidr_block" {
 variable "environment" {
   type = string
 }
-
 variable "public_subnets" {
   default = {
     "public-subnet-1" = 1
@@ -21,7 +20,10 @@ variable "private_subnets" {
     "private-subnet-3" = 3
   }
 }
-
 variable "public_subnet_cidr" {
+  
+}
+
+variable "tags" {
   
 }

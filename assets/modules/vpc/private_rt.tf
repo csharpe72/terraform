@@ -7,10 +7,14 @@ resource "aws_route_table" "private" {
     cidr_block     = var.public_subnet_cidr
     nat_gateway_id = aws_nat_gateway.nat_gateway.id
   }
-  tags = {
-    Name = "terraform-private-rtb"
-    Tier = "private"
-  }
+
+  tags = merge(
+    var.tags,
+    {
+      Name = "terraform-private-rtb"
+      Tier = "private"
+    },
+  )
 }
 
 #Create EIP for NAT Gateway
@@ -19,9 +23,14 @@ resource "aws_eip" "nat_gateway_eip" {
   depends_on = [
     aws_internet_gateway.igw
   ]
-  tags = {
-    Name = "terraform-nat-gw-eip"
-  }
+
+  tags = merge(
+    var.tags,
+    {
+      Name = "terraform-nat-gw-eip"
+    },
+  )
+
 }
 
 #Create NAT Gateway
@@ -31,9 +40,13 @@ resource "aws_nat_gateway" "nat_gateway" {
   ]
   allocation_id = aws_eip.nat_gateway_eip.id
   subnet_id     = aws_subnet.public_subnets["public-subnet-1"].id
-  tags = {
-    Name = "terraform-nat-gw"
-  }
+  
+  tags = merge(
+    var.tags,
+    {
+      Name = "terraform-nat-gw"
+    },
+  )  
 }
 
 

@@ -51,17 +51,3 @@ variable "instance_type" {
 variable "key_name" {
 
 }
-
-# variable "resource_tags" {
-#   description = "Tags to set for all resources"
-#   type        = map(string)
-#   default = {
-#     project_name = var.project_name,
-#     environment  = var.environment
-#     Terraform    = "true"
-#   }
-# }
-
-# locals {
-#   name_suffix = "${var.resource_tags["project_name"]}-${var.resource_tags["environment"]}"
-# }

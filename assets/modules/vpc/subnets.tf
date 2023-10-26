@@ -18,11 +18,14 @@ resource "aws_subnet" "public_subnets" {
   availability_zone       = tolist(data.aws_availability_zones.azs.names)[each.value - 1]
   map_public_ip_on_launch = true
 
-  tags = {
-    Terraform = "true"
-    Name = "${each.key}"
-    Tier = "public"
-  }
+
+  tags = merge(
+    var.tags,
+    {
+      Name = "${each.key}"
+      Tier = "public"
+    },
+  )
 }
 
 #Create n private subnets
@@ -33,9 +36,11 @@ resource "aws_subnet" "private_subnets" {
   availability_zone       = tolist(data.aws_availability_zones.azs.names)[each.value - 1]
   map_public_ip_on_launch = false
 
-  tags = {
-    Terraform = "true"
-    Name = "${each.key}"
-    Tier = "private"
-  }
+  tags = merge(
+    var.tags,
+    {
+      Name = "${each.key}"
+      Tier = "private"
+    },
+  )
 }

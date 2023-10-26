@@ -14,3 +14,7 @@ variable "bastion_port" {
 variable "jenkins_ports" {
 
 }
+
+variable "tags" {
+  
+}

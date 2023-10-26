@@ -47,10 +47,12 @@ resource "aws_instance" "bastion" {
   vpc_security_group_ids      = [var.bastion_security_groups]
 
 
-  tags = {
-    Terraform = "true"
-    Name      = "jenkins-bastion"
-  }
+  tags = merge(
+    var.tags,
+    {
+      Name = "jenkins-bastion"
+    },
+  )
 }
 
 # /*** Launch a jenkins master instance in the private subnet. */
