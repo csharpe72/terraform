@@ -5,11 +5,12 @@ resource "aws_vpc" "main_vpc" {
   enable_dns_hostnames = true
   instance_tenancy     = "default"
 
-  tags = {
-    Name            = "main-vpc-${var.environment}"
-    Terraform = "true"
-    LaunchMonthYear = formatdate("MM-YYYY", timestamp())
-  }
+  tags = merge(
+    var.tags,
+    {
+      LaunchMonthYear = formatdate("MM-YYYY", timestamp())
+    },
+  )
 
   lifecycle {
     ignore_changes = [

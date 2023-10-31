@@ -10,11 +10,11 @@ resource "aws_security_group" "bastion" {
   dynamic "ingress" {
     for_each = local.bastion-sg
     content {
-      description = "${ingress.key}-${ingress.value.port}"
-      protocol    = ingress.value.protocol
-      from_port   = ingress.value.port
-      to_port     = ingress.value.port
-      cidr_blocks = ["${data.external.myipaddr.result.ip}/32"]
+      description     = "${ingress.key}-${ingress.value.port}"
+      protocol        = ingress.value.protocol
+      from_port       = ingress.value.port
+      to_port         = ingress.value.port
+      cidr_blocks     = ["${data.external.myipaddr.result.ip}/32"]
       security_groups = []
     }
   }
@@ -25,9 +25,12 @@ resource "aws_security_group" "bastion" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  tags = {
-    Name = "aws_security_group.bastion"
-  }
+  tags = merge(
+    var.tags,
+    {
+      Name = "aws_security_group.bastion"
+    },
+  )
 
   lifecycle {
     create_before_destroy = true
@@ -56,9 +59,12 @@ resource "aws_security_group" "web" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  tags = {
-    Name = "aws_security_group.web"
-  }
+  tags = merge(
+    var.tags,
+    {
+      Name = "aws_security_group.web"
+    },
+  )
   lifecycle {
     create_before_destroy = true
   }
@@ -85,9 +91,12 @@ resource "aws_security_group" "lb" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  tags = {
-    Name = "aws_security_group.lb"
-  }
+  tags = merge(
+    var.tags,
+    {
+      Name = "aws_security_group.lb"
+    },
+  )
   lifecycle {
     create_before_destroy = true
   }

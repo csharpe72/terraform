@@ -46,11 +46,24 @@ resource "aws_instance" "bastion" {
   subnet_id                   = random_shuffle.subnets.result[0]
   vpc_security_group_ids      = [var.bastion_security_groups]
 
+  # provisioner "file" {
+  #   source      = "/Users/csharpe/Downloads/Jenkins_Server.pem"
+  #   destination = "/tmp/Jenkins_Server.pem"
 
-  tags = {
-    Terraform = "true"
-    Name      = "jenkins-bastion"
-  }
+  #   connection {
+  #     type     = "ssh"
+  #     user     = "ubuntu"
+  #     password = var.root_password
+  #     host     = var.host
+  #   }
+  # }
+
+  tags = merge(
+    var.tags,
+    {
+      Name = "jenkins-bastion"
+    },
+  )
 }
 
 # /*** Launch a jenkins master instance in the private subnet. */
@@ -66,6 +79,11 @@ resource "aws_instance" "jenkins_master" {
   vpc_security_group_ids      = [var.web_security_groups]
 
   user_data = file("${path.module}/scripts/bootstrap.sh")
+
+  # provisioner "file" {
+  #   source      = "/Users/csharpe/Downloads/Jenkins_Server.pem"
+  #   destination = "/tmp/Jenkins_Server.pem"
+  # }
   tags = {
     Terraform = "true"
     Name      = "jenkins-master-${each.value}"

@@ -7,18 +7,25 @@ resource "aws_route_table" "public" {
     gateway_id = aws_internet_gateway.igw.id
   }
 
-  tags = {
-    Name = "terraform-public-rtb"
-    Tier = "public"
-  }
+  tags = merge(
+    var.tags,
+    {
+      Name = "terraform-public-rtb"
+    },
+  )
+
 }
 
 #Create Internet Gateway
 resource "aws_internet_gateway" "igw" {
   vpc_id = aws_vpc.main_vpc.id
-  tags = {
-    Name = "terraform-igw"
-  }
+
+  tags = merge(
+    var.tags,
+    {
+      Name = "terraform-igw"
+    },
+  )
 }
 
 #Create public route table associations

@@ -11,9 +11,12 @@ resource "aws_s3_bucket" "terraform_state_bucket" {
   #bucket = "jenkins-terraform-state-bucket-${random_string.random.result}" # Should be var.aws_bucket_name
   bucket = "jenkins-terraform-state-bucket-imminent"
 
-  tags = {
+  tags = merge(
+    var.tags,
+    {
       LaunchMonthYear = formatdate("MM-YYYY", timestamp())
-  }
+    },
+  )
 
   lifecycle {
     ignore_changes = [
