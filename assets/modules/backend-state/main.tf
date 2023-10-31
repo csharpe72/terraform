@@ -46,3 +46,12 @@ resource "aws_s3_bucket_versioning" "bucket_version" {
     status = "Enabled"
   }
 }
+
+# data "terraform_remote_state" "network" {
+#   backend = "s3"
+#   config = {
+#     bucket = "terraform-state-prod"
+#     key    = "network/terraform.tfstate"
+#     region = "us-east-1"
+#   }
+# }

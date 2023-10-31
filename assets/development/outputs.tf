@@ -17,6 +17,6 @@ output "jenkins" {
   value = module.ec2.jenkins_master
 }
 
-#  output "load_balancer_ip" { 
-#  	value = module.network.load_balancer_ip 
-#  }
+ output "load_balancer_dns" { 
+ 	value = module.network.load_balancer_dns
+ }
