@@ -9,7 +9,7 @@ terraform {
 
 module "backend-state" {
   source = "../modules/backend-state"
-  tags = local.common_tags
+  tags   = local.common_tags
 }
 
 module "vpc" {
@@ -38,9 +38,10 @@ module "ec2" {
   web_security_groups     = module.security.web_security_group_ids
   tags                    = local.common_tags
 }
-# module "network" {
-#   source                = "../modules/network"
-#   public_subnet_id      = module.vpc.private_subnets
-#   lb_security_group_ids = [module.security.lb_security_group_ids]
-#   ec2_instance_ids      = [module.ec2.jenkins_master]
-# }
+module "network" {
+  source                = "../modules/network"
+  public_subnet_id      = module.vpc.public_subnets
+  lb_security_group_ids = [module.security.lb_security_group_ids]
+  ec2_instance_ids      = module.ec2.jenkins_master
+  tags                  = local.common_tags
+}
