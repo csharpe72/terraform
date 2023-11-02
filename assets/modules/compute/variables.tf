@@ -1,13 +1,13 @@
 variable "environment" {
-  
+  type = string
 }
 
 variable "instance_type" {
-  
+  type = string
 }
 
 variable "key_name" {
-  
+  type = string
 }
 
 variable "subnets" {
@@ -27,5 +27,5 @@ variable "web_security_groups" {
 }
 
 variable "tags" {
-  
+  type = map(any)
 }

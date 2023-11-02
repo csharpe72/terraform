@@ -1,16 +1,16 @@
 variable "aws_region" {
   type = string
 }
-
 variable "environment" {
   type = string
 }
 
 variable "project" {
-  
+  type = string
 }
 
 variable "managed_by" {
+  type = string
 }
 variable "aws_access_key" {
   type = string
@@ -23,25 +23,6 @@ variable "aws_secret_key" {
 variable "vpc_cidr_block" {
   type = string
 }
-
-variable "public_subnets" {
-  type = map(any)
-  default = {
-    "public-subnet-1" = 1
-    # "public-subnet-2" = 2
-    # "public-subnet-3" = 3
-  }
-}
-
-variable "private_subnets" {
-  type = map(any)
-  default = {
-    "private-subnet-1" = 1
-    # "private-subnet-2" = 2
-    # "private-subnet-3" = 3
-  }
-}
-
 variable "public_subnet_cidr" {
   type = string
 }
@@ -51,5 +32,5 @@ variable "instance_type" {
 }
 
 variable "key_name" {
-
+  type = string
 }
