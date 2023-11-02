@@ -25,5 +25,5 @@ variable "public_subnet_cidr" {
 }
 
 variable "tags" {
-  
+  type = map(any)
 }

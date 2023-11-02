@@ -9,5 +9,5 @@ variable "ec2_instance_ids" {
 }
 
 variable "tags" {
-  
+  type = map(any)
 }
