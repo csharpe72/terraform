@@ -15,17 +15,16 @@ variable "subnets" {
 }
 
 variable "private_subnets" {
-  
+
 }
 
 variable "bastion_security_groups" {
-  
+
 }
 
 variable "web_security_groups" {
-  
-}
 
+}
 variable "tags" {
   type = map(any)
 }
