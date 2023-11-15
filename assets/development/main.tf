@@ -19,8 +19,8 @@ terraform {
   }
 }
 
-module "backend-state" {
-  source = "../modules/backend-state"
+module "buckets" {
+  source = "../modules/s3"
   tags   = local.common_tags
 }
 
@@ -56,4 +56,5 @@ module "network" {
   lb_security_group_ids = [module.security.lb_security_group_ids]
   ec2_instance_ids      = module.ec2.jenkins_master
   tags                  = local.common_tags
+  vpc_id                = module.vpc.vpc_id
 }

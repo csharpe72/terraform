@@ -1,3 +1,3 @@
  output "load_balancer_dns" { 
- 	value = aws_elb.jenkins_elb.dns_name 
+ 	value = aws_lb.jenkins.dns_name 
  }
