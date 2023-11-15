@@ -8,6 +8,10 @@ variable "ec2_instance_ids" {
 
 }
 
+variable "vpc_id" {
+  
+}
+
 variable "tags" {
   type = map(any)
 }

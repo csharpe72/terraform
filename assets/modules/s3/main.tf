@@ -6,6 +6,11 @@ resource "random_string" "random" {
   special = false
 }
 
+resource "aws_kms_key" "state_key" {
+  description             = "This key is used to encrypt bucket objects"
+  deletion_window_in_days = 10
+}
+
 resource "aws_s3_bucket" "terraform_state_bucket" {
   #bucket = "var.aws_bucket_name-${random_string.random.result}"
   #bucket = "jenkins-terraform-state-bucket-${random_string.random.result}" # Should be var.aws_bucket_name
@@ -34,7 +39,9 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "sse" {
 
   rule {
     apply_server_side_encryption_by_default {
-      sse_algorithm = "AES256"
+      kms_master_key_id = aws_kms_key.state_key.arn
+      sse_algorithm     = "aws:kms"
+      # sse_algorithm = "AES256"
     }
   }
 }
@@ -46,12 +53,3 @@ resource "aws_s3_bucket_versioning" "bucket_version" {
     status = "Enabled"
   }
 }
-
-# data "terraform_remote_state" "network" {
-#   backend = "s3"
-#   config = {
-#     bucket = "terraform-state-prod"
-#     key    = "network/terraform.tfstate"
-#     region = "us-east-1"
-#   }
-# }
